@@ -1,0 +1,49 @@
+
+      <nav class="navbar sticky-top navbar-expand-lg" style="background-color:#05081a; font-family: 'Times New Roman', Times, serif;">
+        <!-- Content for the top navbar -->
+        <div class="container-fluid">
+          <a class="navbar-brand text-white" href="/">Home</a>
+          <button class="navbar-toggler" style="background-color: azure;" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active text-white" aria-current="page" href="/questions/new">Add Question</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active text-white" aria-current="page" href="/questions/myquestions">My questions</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white" href="#">Notifications</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Subjects
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#">Physics</a></li>
+                  <li><a class="dropdown-item" href="#">Chemistry</a></li>
+                  <li><a class="dropdown-item" href="#">Maths</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="#">General questions</a></li>
+                </ul>
+              </li>
+            </ul>
+            <div class="navbar-nav ml-auto">
+              <% if (user) { %>
+                  <!-- If user is logged in, show logout link -->
+                  <a class="nav-link text-white" href="/logout">Logout</a>
+              <% } else { %>
+                  <!-- If user is not logged in, show login link -->
+                  <a class="nav-link text-white" href="/login">Login</a>
+              <% } %>
+          </div>
+          
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Physics Quiz Homepage</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <%- include('./partials/navbar')%>
+
+    <header class="jumbotron text-center bg-primary text-white">
+        <h1 class="display-4">Welcome to the AI-powered Quiz & Mock test Portal</h1>
+        <p class="lead">Test your knowledge with wide spectrum of quizzes and mock tests for free.</p>
+    </header>
+
+    <section class="container">
+        <h2 class="text-center my-4">Available Quizzes</h2>
+        <div class="row">
+            <% if(quizzes && quizzes.length) { %>
+            
+            <% for(let i = 0; i < quizzes.length; i++) { %>
+                <div class="col-md-4 mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"><%= quizzes[i].name %></h5>
+                            <a href="/questions" class="btn btn-primary">Take Quiz</a>
+                        </div>
+                    </div>
+                </div>
+            <% } %>
+            <% } else { %>
+                <p>No quizzes available at the moment.</p>
+            <% } %>
+        </div>
+    </section>
+
+    <section class="container text-center my-5">
+        <h2>Create Your Own Quiz</h2>
+        <p>Want to challenge others? Create your own quiz!</p>
+        <button class="btn btn-success" onclick="window.location.href='/login'">Create Quiz</button>
+    </section>
+
+    <footer class="text-center py-3 bg-light">
+        <p>&copy; <%= new Date().getFullYear() %> Physics Quiz Portal</p>
+    </footer>
+
+    <!-- Bootstrap JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

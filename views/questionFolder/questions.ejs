@@ -1,0 +1,99 @@
+<% layout('layouts/boilerplate')%>
+    <p></p>
+    <ol>
+      <% questions = questions.sort(() => Math.random() - 0.5) %>
+      <% for (let questionIndex = 0; questionIndex < questions.length; questionIndex++) { %>
+        <li>
+          <div id="quizelement" style="position: relative; padding: 20px; border: 1px solid rgb(114, 101, 101); margin-bottom: 9px; border-radius: 8px; background-color: rgb(199, 230, 240); box-shadow: 2px 2px 4px rgba(0, 2, 94, 0.397); font-family: 'Times New Roman', Times, serif;">
+            <div style="position: absolute; top: 5px; right: 5px;">
+          
+
+              <ul id="options<%= questionIndex %>" class="list-unstyled p-0" style="display: none;background-color: rgb(199, 230, 240);">
+                <li><button class="btn btn-success btn-sm d-block"><a class="dropdown-item" href="/questions/<%= questions[questionIndex]._id %>/edit"> Edit </a></button></li>
+                <li><form action="/questions/<%= questions[questionIndex]._id %>?_method=DELETE" method="POST"><button type="submit" class="btn btn-danger btn-sm d-block mt-1"><a class="dropdown-item" >Delete</a></button></form></li>
+                
+              </ul>
+            </div>
+            
+            <p>
+              <a href="/questions/<%= questions[questionIndex]._id %>" style="color: black; text-decoration: none; font-weight: bold;">
+                <%= questions[questionIndex].question %>
+              </a>
+              <span id="result-<%= questions[questionIndex]._id %>" class="result" style="opacity: 0; transform: scale(0.5);"></span>
+            </p>
+            
+            <% for (let i = 0; i < questions[questionIndex].options.length; i++) { %>
+              <label>
+                <input type="radio" name="<%= questions[questionIndex]._id %>" value="<%= questions[questionIndex].options[i] %>">
+                <%= questions[questionIndex].options[i] %>
+              </label>
+            <% } %>
+          </div>
+        </li>
+      <% } %>
+    </ol>
+      <!-- your-template.ejs -->
+<script>
+  // Taking questions object passed from express route for modifying in static javascript file.
+  const questions = <%- JSON.stringify(questions) %>;
+</script>
+<script src="/javascript/selection.js">
+
+// Static script in public folder.
+
+</script>
+      
+<!-- Animation for displaying answer -->
+<!-- <style>
+  .result {
+    display: inline-block;
+    margin-left: 10px;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    vertical-align: middle;
+    font-weight: bold;
+    font-size: 16px;
+    transition: opacity 0.3s;
+  }
+  
+  .result.correct {
+    color: green;
+    animation: tickmark-animation 0.5s;
+  }
+  
+  .result.incorrect {
+    color: red;
+    animation: redcross-animation 0.5s;
+  }
+  
+  @keyframes tickmark-animation {
+    0% {
+      opacity: 0;
+      transform: scale(0.5);
+    }
+    50% {
+      opacity: 0.5;
+      transform: scale(2);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(3);
+    }
+  }
+  
+  @keyframes redcross-animation {
+    0% {
+      opacity: 0;
+      transform: scale(0.5);
+    }
+    50% {
+      opacity: 0.5;
+      transform: scale(2);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(3);
+    }
+  }
+</style> -->

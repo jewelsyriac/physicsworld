@@ -1,0 +1,102 @@
+<% layout('layouts/boilerplate')%>
+<div class="container">
+    <form action="/questions" method="POST" novalidate class="needs-validation">
+        <div class="mb-3">
+            <p></p>
+            <label for="question" class="form-label">Question</label>
+            <textarea type="text" class="form-control h-100" id="question" name="question" required></textarea>
+        </div>
+        
+        <div class="row">
+            <div class="col-sm-6 mb-3">
+                <label for="exam" class="form-label">Subject</label> 
+                <select class="form-select" id="exam" name="exam">
+                    <option value="JEE">JEE</option>
+                    <option value="NEET">NEET</option>
+                    <option value="AIPMT">AIPMT</option>
+                    <option value="BITSAT">BITSAT</option>
+                    <option value="JNU CEE">JNU CEE</option>
+                    <option value="BHU UET">BHU UET</option>
+                    <option value="NID">NID</option>
+                    <option value="Other exams">Other exams</option>
+                </select> 
+            </div>
+            <div class="col-sm-6 mb-3">
+                <label for="subject" class="form-label">Subject</label>
+                    <select class="form-select" id="subject" name="subject">
+                        <option value="Physics">Physics</option>
+                        <option value="Chemistry">Chemistry</option>
+                        <option value="Mathematics">Mathematics</option>
+                        <option value="Biology">Biology</option>
+                        <option value="General part">General part</option>
+                    </select>
+            </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3 mb-3">
+                    <label for="option1" class="form-label">Option 1</label>
+                    <input type="text" class="form-control option-input" id="option1" name="options" placeholder="option 1" required>
+                </div>
+                <div class="col-sm-3 mb-3">
+                    <label for="option2" class="form-label">Option 2</label>
+                    <input type="text" class="form-control option-input" id="option2" name="options"  placeholder="option 2" required>
+                </div>
+                <div class="col-sm-3 mb-3">
+                    <label for="option3" class="form-label">Option 3</label>
+                    <input type="text" class="form-control option-input" id="option3" name="options"  placeholder="option 3" required>
+                </div>
+                <div class="col-sm-3 mb-3">
+                    <label for="option4" class="form-label">Option 4</label>
+                    <input type="text" class="form-control option-input" id="option4" name="options"  placeholder="option 4" required>
+                </div>
+            </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label for="answer" class="form-label">Answer</label>
+                    <select class="form-select" id="answer" name="answer" required>
+                        <option value="">Select Answer</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label for="solution" class="form-label">Solution</label>
+                    <textarea class="form-control" id="solution" name="solution" value="solution"></textarea>
+                </div>
+                
+            </div>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Add Question</button>
+    </form>
+    <a href="/questions" class="btn btn-secondary mt-3">All Questions</a>
+
+    <script>
+        // Get the option inputs
+        const optionInputs = document.querySelectorAll('.option-input');
+        // Get the answer select element
+        const answerSelect = document.getElementById('answer');
+        
+        // Function to populate the answer select
+        function populateAnswerSelect() {
+            // Clear previous options
+            answerSelect.innerHTML = '<option value="">Select Answer</option>';
+            
+            // Populate with options
+            optionInputs.forEach(input => {
+                const optionValue = input.value;
+                const optionText = input.value;
+                const optionElement = document.createElement('option');
+                optionElement.value = optionValue;
+                optionElement.textContent = optionText;
+                answerSelect.appendChild(optionElement);
+            });
+        }
+        
+        // Trigger the function after filling the last option
+        optionInputs[optionInputs.length - 1].addEventListener('input', populateAnswerSelect);
+    </script>
+    
+</div>
+

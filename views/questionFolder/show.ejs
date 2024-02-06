@@ -1,0 +1,92 @@
+<% layout('layouts/boilerplate')%>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <p><b>Question : <%= question.question %></b></p>
+      
+      
+      <p>Options:</p>
+      <ol>
+        <% for (let option of question.options) { %>
+          <li><%= option %></li>
+        <% } %>
+      </ol>
+      
+      <p style="display: none;" class="answerShow"><%= question.answer %></p>
+      
+      <button id="showButton" class="btn btn-primary">Show Answer</button>
+      <p></p>
+      <% if(currentUser && question.author.equals(currentUser._id)){%>
+      <p>
+        <a href="/questions/<%= question._id %>/edit" class="btn btn-secondary">Edit</a>
+      </p>
+      
+      <form action="/questions/<%= question._id %>?_method=DELETE" method="POST" class="d-inline">
+        <button type="submit" class="btn btn-danger">Delete</button>
+      </form>
+      <%}%>
+      <p></p>
+      <p><b>Exam: <%= question.exam %>,  Author: <%=question.author.username%></b></p>
+<%if(currentUser){%>
+      <h4 class="mt-3">Add an answer</h4>
+      <form action="/questions/<%=question._id%>/reviews" method="POST" class="mb-3">
+        <div class="mb-3">
+          <label class="form-label" for="comment">Answer</label>
+          <textarea class="form-control" name="comment" id="comment" cols="30" rows="5" placeholder="Write your answer here !" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-success">Submit</button>
+      </form>
+      <%}%>
+    </div>
+  </div>
+  
+  <h3>Answers and Comments.</h3>
+  <ol>
+  <% for(let review of question.reviews) { %>
+    <li>
+  <div class="card mt-3 mb-2"><div class="card-body">
+    <h6 class="card-title" style="color: blue;"><%=review.author.username%>.</h6>
+    <p style="font-family: 'Times New Roman', Times, serif;"><%=review.comment%></p>
+    <form action="/questions/<%=question._id%>/reviews/<%=review._id%>?_method=DELETE" method="post">
+      <% if(currentUser && review.author.equals(currentUser._id)){%>
+        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+        <%}%>
+      </form><button class="btn btn-success btn-sm mt-3 mb-3 " id="replybutton">Reply</button>
+      <form id="reply" style="display: none;">
+        <div class="mb-3">
+          <textarea class="form-control" name="reply" id="comment" cols="15" rows="5" placeholder="Write your reply here !"></textarea>
+        <button type="submit" class="btn btn-info btn-sm mt-3 mb-3 ">Add reply</button>
+        </div>
+      </form>
+  </div>
+  </div>
+
+</li>
+  <%}%>
+  </ol>
+  <footer class="mt-5">
+    <a href="/questions" class="btn btn-info">All Questions</a>
+  </footer>
+</div>
+    <script>
+        const showButton = document.getElementById('showButton');
+        const answerParagraph = document.querySelector('.answerShow');
+      
+        showButton.addEventListener('click', function() {
+          if (answerParagraph.style.display === 'none') {
+            answerParagraph.style.display = 'block';
+            showButton.textContent = 'Hide answer';
+          } else {
+            answerParagraph.style.display = 'none';
+            showButton.textContent = 'Show answer';
+          }
+        });
+
+        const replyButton = document.getElementById("replybutton");
+        const replyform = document.getElementById("reply");
+
+        replyButton.addEventListener("click",()=>{
+          replyform.style.display = "block";
+        })
+      </script>
+<% layout('layouts/boilerplate')%>
