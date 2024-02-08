@@ -25,10 +25,6 @@ const questions = require("./routes/questions");
 const reviews = require("./routes/reviews");
 const users = require("./routes/users");
 
-require('dotenv').config();
-
-
-
 // Middleware setup
 app.use(helmet({contentSecurityPolicy: false}));
 app.use(bodyParser.urlencoded({ extended: false }));
